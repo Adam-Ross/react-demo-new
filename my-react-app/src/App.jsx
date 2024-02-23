@@ -11,7 +11,10 @@ function App() {
   // state
   const [tasks, setTasks] = useState([])
   const [message, setMessage] = useState('There are no tasks...')
+  const [singleTodo, setSingleTodo] = useState(null)
+  const [loading, setLoading] = useState(false)
 
+  // https://jsonplaceholder.typicoce.com/todos/:id
 
   // hooks
   useEffect(() => {
@@ -24,6 +27,16 @@ function App() {
     getTodos()
   }, [])
 
+  const getSingleTodo = async (id) => {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    const data = await res.json()
+    setSingleTodo(data)
+  }
+
+  const resetSingleTodo = () => {
+    setSingleTodo(null)
+  }
+
 
 
   // custom functions
@@ -31,12 +44,18 @@ function App() {
     setTasks([...tasks, text])
   }
 
-  const taskList = tasks.length === 0 ? <Warning  message={message} /> : <Tasks tasks={tasks}/>
+  if(loading) {
+    return <Warning  message={message} /> 
+  }
+
+  const taskList = singleTodo ? <SingleItem singleTodo={singleTodo} resetSingleTodo={resetSingleTodo} /> : <Tasks tasks={tasks}
+ 
+  getSingleTodo={getSingleTodo}
+  />
 
   return (
     <>
       <TaskInput addTask={addTask} />
-      <SingleItem />
       {taskList}
     </>
   )

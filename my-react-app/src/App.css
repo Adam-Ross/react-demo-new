@@ -5,6 +5,16 @@
   
 }
 
+.btn {
+  background: #333;
+  color: #f4f4f4;
+  border: none;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
