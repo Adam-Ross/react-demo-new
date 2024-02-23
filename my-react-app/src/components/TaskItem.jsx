@@ -1,8 +1,14 @@
 const TaskItem = ({task}) => {
+
+    const handleClick = (e) => {
+        console.log(task.id)
+    }
+
     return (
-        <>
-            <h1>{task}</h1>
-        </>
+        <div onClick={handleClick}>
+            <h1>{task.title}</h1>
+            <p>{task.id}</p>
+        </div>
     ) 
 
 }
